@@ -81,6 +81,7 @@ class MyButton extends React.Component {
 }
 
 const App = () => {
+  console.log('git için değişiklik')
   return (
     <>
       <MyTextComponent text={"İkinci component'imi yazdım"}></MyTextComponent>
