@@ -27,6 +27,9 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+
+import Comp from './SecondFile';
+
 const BoldText = props => {
   let text = props.text;
   return (
