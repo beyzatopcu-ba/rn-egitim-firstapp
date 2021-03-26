@@ -7,7 +7,7 @@ const Green = () => {
     return (
         <View style={styles.container}>
             <View style={styles.getStoneStyle("orange")}/>
-            <View style={styles.getStoneStyle("lightpurple")}/>
+            <View style={styles.getStoneStyle("purple")}/>
             <View style={styles.getStoneStyle("lightgreen")}/>
             <View style={styles.getStoneStyle("blue")}/>
             <View style={styles.getStoneStyle("pink")}/>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, SafeAreaView} from 'react-native';
+import {View, StatusBar} from 'react-native';
 
 // Components
 import Black from './Black';
@@ -12,12 +12,15 @@ import styles from './AppStyles';
 
 const App = () => {
     return (
+        <>
+        <StatusBar barStyle="light-content" backgroundColor="black"/>
         <View style={styles.container}>
             <Black />
             <Gray />
             <Green />
             <Yellow />
         </View>
+        </>
     );
 }
 
