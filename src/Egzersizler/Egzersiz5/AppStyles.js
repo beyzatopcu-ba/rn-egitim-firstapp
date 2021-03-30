@@ -10,6 +10,12 @@ let styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: width * 0.05,
     },
+    headerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: width * 0.1,
+        alignItems: 'center',
+    },
 });
 
 export default styles;

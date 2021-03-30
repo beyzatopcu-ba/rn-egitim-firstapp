@@ -1,61 +1,75 @@
-import React from 'react';
-import { View, Text, Image, SafeAreaView, ScrollView, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, SafeAreaView, ScrollView, Platform, TouchableOpacity } from 'react-native';
 
 import CustomInput from './CustomInput';
 import CustomButton from './CustomButton';
 
 import styles from './AppStyles';
+import Item from './Item';
 
-class App extends React.Component {
+const App = () => {
 
-    constructor(props) {
-        super(props);
+    const [text, setText] = useState('');
+    const [itemList, setItemList] = useState([]);
+    const [editMode, setEditMode] = useState(false);
 
-        this.state = {
-            text: 'askjd',
-            itemList: [],
-        };
-    }
-
-    _onChangeText_Item = text => {
+    const _onChangeText_Item = text => {
         console.log('aksjdk')
-        this.setState({
-            text,
-        })
+        setText(text);
     }
 
-    _onPress_Add = () => {
-        const item = this.state.text;
-        let itemListCopy = [...this.state.itemList];
-        itemListCopy.push(item);
+    const _onPress_Add = () => {
+        if (text.trim() === '') {
+            return;
+        }
+        let itemListCopy = [...itemList];
+        itemListCopy.push(text);
 
-        this.setState({
-            itemList: itemListCopy,
-        });
+        setItemList(itemListCopy);
     }
 
-    renderItemList = () => {
-        const itemComponentList = this.state.itemList.map((item, index) => {
+    const _onPress_Edit = () => {
+        setEditMode(!editMode);
+    }
+
+    const _onPress_Delete = (index) => {
+        let itemListCopy = [...itemList];
+        itemListCopy.splice(index, 1);
+
+        setItemList(itemListCopy);
+    }
+
+    const renderItemList = () => {
+        const itemComponentList = itemList.map((item, index) => {
             return (
-                <Text key={index}>{item}</Text>
+                <Item
+                    key={index}
+                    editMode={editMode}
+                    item={item}
+                    onPress_Delete={() => _onPress_Delete(index)} />
             )
         })
 
         return itemComponentList;
     }
 
-    render() {
-        return (
-            <SafeAreaView style={styles.safeArea}>
-                <CustomInput onChangeText={this._onChangeText_Item}/>
-                <CustomButton onPress={this._onPress_Add}/>
-                <Text>Alınacaklar</Text>
-                <ScrollView style={{flexGrow: 1}}>
-                    {this.renderItemList()}
+    return (
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Text>ALIŞVERİŞ LİSTESİ</Text>
+                    <TouchableOpacity onPress={_onPress_Edit}>
+                        <Text>{editMode ? 'Tamam': 'Düzenle'}</Text>
+                    </TouchableOpacity>
+                </View>
+                <CustomInput onChangeText={_onChangeText_Item} />
+                <CustomButton onPress={_onPress_Add} />
+                <ScrollView style={{ flexGrow: 1, marginTop: 50 }}>
+                    {renderItemList()}
                 </ScrollView>
-            </SafeAreaView>
-        );
-    }
+            </View>
+        </SafeAreaView>
+    );
 }
 
 export default App;
